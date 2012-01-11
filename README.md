@@ -1,6 +1,8 @@
 PSSMockeryBundle
 ================
 
+[![Build Status](https://secure.travis-ci.org/PolishSymfonyCommunity/PSSMockeryBundle.png?branch=master)](http://travis-ci.org/PlishSymfonyCommunity/PSSMockeryBundle)
+
 Symfony2 Mockery integration bundle. Currently it supports service mocking.
 
 Usage
