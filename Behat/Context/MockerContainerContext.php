@@ -24,6 +24,10 @@ class MockerContainerContext extends BehatContext
      */
     public function verifyPendingExpectations($event)
     {
+        if (!$this->isClientContainerAvailable()) {
+            return;
+        }
+
         $container = $this->getMockerContainer();
         $mockedServices = $container->getMockedServices();
 
@@ -68,24 +72,33 @@ class MockerContainerContext extends BehatContext
     }
 
     /**
-     * @throws \Exception when used with not supporteddriver
+     * @throws \LogicException when used with not supporteddriver or container cannot create mocks
      *
      * @return \Symfony\Component\DependencyInjection\Container
      */
     protected function getMockerContainer()
     {
-        $driver = $this->getMainContext()->getSession()->getDriver();
-
-        if ($driver instanceof \Behat\MinkBundle\Driver\SymfonyDriver) {
+        if ($this->isClientContainerAvailable()) {
+            $driver = $this->getMainContext()->getSession()->getDriver();
             $container = $driver->getClient()->getContainer();
 
             if (!$container instanceof \PSS\Bundle\MockeryBundle\DependencyInjection\MockerContainer) {
-                throw new \Exception('Container is not able to mock the services');
+                throw new \LogicException('Container is not able to mock the services');
             }
 
             return $container;
         }
 
-        throw new \Exception('Session has no access to client container');
+        throw new \LogicException('Session has no access to client container');
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function isClientContainerAvailable()
+    {
+        $driver = $this->getMainContext()->getSession()->getDriver();
+
+        return $driver instanceof \Behat\MinkBundle\Driver\SymfonyDriver;
     }
 }
