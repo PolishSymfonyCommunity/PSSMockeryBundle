@@ -6,9 +6,7 @@ Symfony2 Mockery integration bundle. Currently it supports service mocking.
 Usage
 -----
 
-Add a namespace and replace base container class for test environment in `app/AppKernel.php`:
-
-.. code-block:: php
+Add a namespace and replace base container class for test environment in `app/AppKernel.php`::
 
     /**
      * @return null
@@ -33,9 +31,7 @@ Add a namespace and replace base container class for test environment in `app/Ap
         return parent::getContainerBaseClass();
     }
 
-If you want to use it with Behat enable sub-context in your `FeatureContext` class:
-
-.. code-block:: php
+If you want to use it with Behat enable sub-context in your `FeatureContext` class::
 
     /**
      * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
@@ -49,9 +45,7 @@ If you want to use it with Behat enable sub-context in your `FeatureContext` cla
         $this->useContext('container', new \PSS\Bundle\MockeryBundle\Behat\Context\MockerContainerContext($kernel));
     }
 
-Example story:
-
-.. code-block::
+Example story::
 
     Feature: Submitting sales request form
       As a Visitor
@@ -67,9 +61,7 @@ Example story:
          And I submit the contact us form
         Then the contact request should be sent to the CRM
 
-Step definitions:
-
-.. code-block:: php
+Step definitions::
 
     /**
      * @Given /^CRM API is available$/
