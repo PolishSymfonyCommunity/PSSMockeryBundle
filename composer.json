@@ -1,0 +1,37 @@
+{
+    "name": "polishsymfonycommunity/mockery-bundle",
+    "type": "symfony-bundle",
+    "description": "This Bundle provides Mockery integration to make it possible to mock service in Behat.",
+    "keywords": ["behat", "mockery", "mock", "bdd", "tdd", "test"],
+    "homepage": "http://symfonylab.pl",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jakub Zalas",
+            "email": "jakub@zalas.pl",
+            "homepage": "http://www.zalas.eu"
+        }
+    ],
+    "require": {
+        "php":             ">=5.3.2",
+        "symfony/symfony": ">=2.0.8",
+        "padraic/mockery": ">=0.7.0"
+    },
+    "repositories": {
+        "padraic/mockery": {
+            "package": {
+                "name": "padraic/mockery",
+                "version": "0.7.0",
+                "source": {
+                    "url": "git://github.com/padraic/mockery.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        }
+    },
+    "autoload": {
+        "psr-0": { "PSS\\Bundle\\MockeryBundle": "", "Mockery": "vendor/padraic/mockery/library" }
+    },
+    "target-dir": "PSS/Bundle/MockeryBundle"
+}
