@@ -31,7 +31,7 @@ Replace base container class for test environment in `app/AppKernel.php`::
         return parent::getContainerBaseClass();
     }
 
-If you want to use it with Behat enable sub-context in your `FeatureContext` class::
+To use it with Behat enable sub-context in your `FeatureContext` class::
 
     /**
      * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
@@ -47,7 +47,7 @@ If you want to use it with Behat enable sub-context in your `FeatureContext` cla
 
 Example story::
 
-    Feature: Submitting sales request form
+    Feature: Submitting contact request form
       As a Visitor
       I want to contact sales
       In order to receive more information
@@ -72,7 +72,9 @@ Step definitions::
     {
         $this->getMainContext()->getSubContext('container')
             ->mockService('crm.client', 'PSS\Crm\Client')
-            ->shouldReceive('send')->once()->andReturn(true);
+            ->shouldReceive('send')
+            ->once()
+            ->andReturn(true);
     }
 
     /**
@@ -84,6 +86,10 @@ Step definitions::
     {
         return new Then(sprintf('the "%s" service should meet my expectations', 'crm.client'));
     }
+
+All the expectations are checked automatically with an `@afterScenario` hook. 
+Doing it manually only improves the readability of the scenario and gives better
+error message.
 
 To discuss
 ----------
