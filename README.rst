@@ -6,18 +6,18 @@ Symfony2 Mockery integration bundle. Currently it supports service mocking.
 Usage
 -----
 
-Add a namespace and replace base container class for test environment in `app/AppKernel.php`::
+Add a namespace into the `app/autoload.php`::
 
-    /**
-     * @return null
-     */
-    public function registerBundles()
-    {
-        $loader->registerNamespaces(array(
-            // ...
-            'PSS' => __DIR__.'/../vendor/bundles'
-        ));
-    }
+    $loader->registerNamespaces(array(
+        // ...
+        'PSS'     => __DIR__.'/../vendor/bundles',
+        'Mockery' => __DIR__.'/../vendor/mockery/library',
+    ));
+
+    // class has no namespace and therefore needs be required manually
+    require_once __DIR__.'/../vendor/mockery/library/Mockery.php';
+
+Replace base container class for test environment in `app/AppKernel.php`::
 
     /**
      * @return string
