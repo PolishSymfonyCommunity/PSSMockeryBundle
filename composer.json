@@ -13,10 +13,10 @@
         }
     ],
     "require": {
-        "php":             ">=5.3.2",
-        "symfony/symfony": ">=2.0.8",
-        "padraic/mockery": ">=0.7.0",
-        "behat/behat":     "*"
+        "php":                       ">=5.3.2",
+        "symfony/framework-bundle":  ">=2.0.0",
+        "padraic/mockery":           ">=0.7.0",
+        "behat/behat":               "*"
     },
     "repositories": {
         "padraic/mockery": {
@@ -27,12 +27,15 @@
                     "url": "git://github.com/padraic/mockery.git",
                     "type": "git",
                     "reference": "master"
+                },
+                "autoload": {
+                    "psr-0": { "Mockery": "library" }
                 }
             }
         }
     },
     "autoload": {
-        "psr-0": { "PSS\\Bundle\\MockeryBundle": "", "Mockery": "vendor/padraic/mockery/library" }
+        "psr-0": { "PSS\\Bundle\\MockeryBundle": "" }
     },
     "target-dir": "PSS/Bundle/MockeryBundle"
 }
