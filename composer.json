@@ -15,24 +15,8 @@
     "require": {
         "php":                       ">=5.3.2",
         "symfony/framework-bundle":  ">=2.0.0",
-        "padraic/mockery":           ">=0.7.0",
+        "cordoval/mockery":          ">=0.7.0",
         "behat/behat":               "*"
-    },
-    "repositories": {
-        "padraic/mockery": {
-            "package": {
-                "name": "padraic/mockery",
-                "version": "0.7.0",
-                "source": {
-                    "url": "git://github.com/padraic/mockery.git",
-                    "type": "git",
-                    "reference": "master"
-                },
-                "autoload": {
-                    "psr-0": { "Mockery": "library" }
-                }
-            }
-        }
     },
     "autoload": {
         "psr-0": { "PSS\\Bundle\\MockeryBundle": "" }
