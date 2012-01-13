@@ -1,4 +1,4 @@
-PSSMockeryBundle
+﻿PSSMockeryBundle
 ================
 
 [![Build Status](https://secure.travis-ci.org/PolishSymfonyCommunity/PSSMockeryBundle.png?branch=master)](http://travis-ci.org/PolishSymfonyCommunity/PSSMockeryBundle)
@@ -16,8 +16,12 @@ Add a namespace into the `app/autoload.php`::
         'Mockery' => __DIR__.'/../vendor/mockery/library',
     ));
 
-    // class has no namespace and therefore needs be required manually
-    require_once __DIR__.'/../vendor/mockery/library/Mockery.php';
+    // Mockery class has no namespace and therefore needs fallback
+    
+    $loader->registerPrefixes(array(
+        //--
+        'Mockery'                        => __DIR__ . '/../vendor/mockery/library',
+    ));
 
 Replace base container class for test environment in `app/AppKernel.php`::
 
