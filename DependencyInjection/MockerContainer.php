@@ -26,7 +26,9 @@ class MockerContainer extends Container
             throw new \InvalidArgumentException(sprintf('Cannot mock unexisting service: "%s"', $id));
         }
 
-        self::$mockedServices[$id] = call_user_func_array(array('Mockery', 'mock'), $arguments);
+        if (!array_key_exists($id, self::$mockedServices)) {
+            self::$mockedServices[$id] = call_user_func_array(array('Mockery', 'mock'), $arguments);
+        }
 
         return self::$mockedServices[$id];
     }

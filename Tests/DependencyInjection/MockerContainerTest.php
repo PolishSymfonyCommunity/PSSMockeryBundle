@@ -93,6 +93,15 @@ class MockerContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('test.service_1' => $mock1, 'test.service_2' => $mock2), $mockedServices);
     }
 
+    public function testThatServiceCanBeMockedOnce()
+    {
+        $mock1 = $this->container->mock('test.service_1', 'stdClass');
+        $mock2 = $this->container->mock('test.service_1', 'stdClass');
+
+        $this->assertSame($mock1, $mock2);
+        $this->assertSame($mock2, $this->container->get('test.service_1'));
+    }
+
     public function testThatMockCanBeRemovedAndContainerFallsBackToTheOriginalService()
     {
         $mock = $this->container->mock('test.service_1', 'stdClass');
