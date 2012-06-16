@@ -8,34 +8,16 @@ Symfony2 Mockery integration bundle. Currently it supports service mocking.
 Installation
 ------------
 
-In your deps file add:
+Add PSSMockeryBundle to your composer.json:
 
-    [Mockery]
-        git=https://github.com/padraic/mockery.git
-        target=/mockery
-
-    [PSSMockeryBundle]
-        git=https://github.com/PolishSymfonyCommunity/PSSMockeryBundle.git
-        target=/bundles/PSS/Bundle/MockeryBundle
-
+    {
+        "require": {
+            "polishsymfonycommunity/mockery-bundle": "*"
+        }
+    }
 
 Usage
 -----
-
-Add a namespace into the `app/autoload.php`::
-
-    $loader->registerNamespaces(array(
-        // ...
-        'PSS'     => __DIR__.'/../vendor/bundles',
-        'Mockery' => __DIR__.'/../vendor/mockery/library',
-    ));
-
-    // Mockery class has no namespace and therefore needs fallback
-    
-    $loader->registerPrefixes(array(
-        //--
-        'Mockery'                        => __DIR__ . '/../vendor/mockery/library',
-    ));
 
 Replace base container class for test environment in `app/AppKernel.php`::
 
@@ -50,7 +32,7 @@ Replace base container class for test environment in `app/AppKernel.php`::
 
         return parent::getContainerBaseClass();
     }
-    
+
 Clear your cache 
 
 To use it with Behat enable sub-context in your `FeatureContext` class::
