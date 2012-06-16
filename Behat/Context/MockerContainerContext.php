@@ -2,17 +2,34 @@
 
 namespace PSS\Bundle\MockeryBundle\Behat\Context;
 
-use Behat\Behat\Context\BehatContext;
-use Behat\Mink\Exception\ExpectationException;
+use Behat\MinkExtension\Context\RawMinkContext;
+use Behat\Symfony2Extension\Context\KernelAwareInterface;
+use Behat\Symfony2Extension\Driver\KernelDriver;
+use Mockery\CountValidator\Exception as CountValidatorException;
+use PSS\Bundle\MockeryBundle\DependencyInjection\MockerContainer;
+use Symfony\Component\HttpKernel\KernelInterface;
 
-class MockerContainerContext extends BehatContext
+class MockerContainerContext extends RawMinkContext implements KernelAwareInterface
 {
+    /**
+     * @var \Symfony\Component\HttpKernel\KernelInterface $kernel
+     */
+    private $kernel = null;
+
     /**
      * @return \Mockery\Mock
      */
     public function mockService()
     {
         return call_user_func_array(array($this->getMockerContainer(), 'mock'), func_get_args());
+    }
+
+    /**
+     * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
+     */
+    public function setKernel(KernelInterface $kernel)
+    {
+        $this->kernel = $kernel;
     }
 
     /**
@@ -24,7 +41,7 @@ class MockerContainerContext extends BehatContext
      */
     public function verifyPendingExpectations($event)
     {
-        if (!$this->isClientContainerAvailable()) {
+        if (!$this->isKernelDriverUsed()) {
             return;
         }
 
@@ -66,8 +83,8 @@ class MockerContainerContext extends BehatContext
     {
         try {
             $service->mockery_verify();
-        } catch (\Mockery\CountValidator\Exception $exception) {
-            throw new ExpectationException('One of the expected services was not called', $this->getMainContext()->getSession(), $exception);
+        } catch (CountValidatorException $exception) {
+            throw new ExpectationException('One of the expected services was not called', $this->getSession(), $exception);
         }
     }
 
@@ -78,11 +95,10 @@ class MockerContainerContext extends BehatContext
      */
     protected function getMockerContainer()
     {
-        if ($this->isClientContainerAvailable()) {
-            $driver = $this->getMainContext()->getSession()->getDriver();
-            $container = $driver->getClient()->getContainer();
+        if ($this->isKernelDriverUsed()) {
+            $container = $this->kernel->getContainer();
 
-            if (!$container instanceof \PSS\Bundle\MockeryBundle\DependencyInjection\MockerContainer) {
+            if (!$container instanceof MockerContainer) {
                 throw new \LogicException('Container is not able to mock the services');
             }
 
@@ -95,10 +111,10 @@ class MockerContainerContext extends BehatContext
     /**
      * @return boolean
      */
-    protected function isClientContainerAvailable()
+    protected function isKernelDriverUsed()
     {
-        $driver = $this->getMainContext()->getSession()->getDriver();
+        $driver = $this->getSession()->getDriver();
 
-        return $driver instanceof \Behat\MinkBundle\Driver\SymfonyDriver;
+        return $driver instanceof KernelDriver;
     }
 }

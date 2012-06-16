@@ -16,7 +16,9 @@
         "php":                       ">=5.3.2",
         "symfony/framework-bundle":  ">=2.0.0",
         "mockery/mockery":           ">=0.7.0",
-        "behat/behat":               "*"
+        "behat/behat":               ">=2.4",
+        "behat/mink-extension":      "*",
+        "behat/symfony2-extension":  "*"
     },
     "autoload": {
         "psr-0": { "PSS\\Bundle\\MockeryBundle": "" }
