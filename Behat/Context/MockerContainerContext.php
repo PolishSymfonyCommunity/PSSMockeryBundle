@@ -2,6 +2,7 @@
 
 namespace PSS\Bundle\MockeryBundle\Behat\Context;
 
+use Behat\Mink\Exception\ExpectationException;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\Symfony2Extension\Driver\KernelDriver;
