@@ -1,6 +1,8 @@
 ﻿PSSMockeryBundle
 ================
 
+**Note**: Since Behat 2.4 got its own extension system this bundle is replaced by [Symfony2MockerExtension](https://github.com/PolishSymfonyCommunity/Symfony2MockerExtension).
+
 [![Build Status](https://secure.travis-ci.org/PolishSymfonyCommunity/PSSMockeryBundle.png?branch=master)](http://travis-ci.org/PolishSymfonyCommunity/PSSMockeryBundle)
 
 Symfony2 Mockery integration bundle. Currently it supports service mocking.
